@@ -48,6 +48,7 @@ public class EmergencyMessageService {
         ClientLocation testClientLocation = locationRepo.findByMacAddress("38:37:8B:DE:42:F8");
         Location testLocation = testClientLocation.getLocationHistory().get(testClientLocation.getLocationHistory().size()-1);
         testLocation.setGfName(testLocation.getGeofenceNames().get(0));
+        List<String> invites = new ArrayList<>();
 
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.setGlobal("alertMsg", message);
@@ -56,10 +57,12 @@ public class EmergencyMessageService {
         //kieSession.insert(gfNtf);
         kieSession.fireAllRules();
         kieSession.dispose();
-        List<String> invites = new ArrayList<>();
-        invites.add(message.getAddress());
-        log.info("aaaaaaaaaaaaaaaaaa address :{}, message :{}", message.getAddress(), message.getMessage());
-        msgService.runSelInvite("confBrms", invites, message.getMessage());
+
+        if(message.getMessage() != null){
+            invites.add(message.getAddress());
+            log.info("address :{}, message :{}", message.getAddress(), message.getMessage());
+            msgService.runSelInvite("confBrms", invites, message.getMessage());
+        }
     }
 
 }
