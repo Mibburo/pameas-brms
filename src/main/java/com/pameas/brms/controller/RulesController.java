@@ -35,19 +35,17 @@ public class RulesController {
         EmergencyStatus emergencyStatus = new EmergencyStatus();
         emergencyStatus.setIsEmergency(true);
 
-        log.info("aaaaaaaaaaaaaaaaaaaaa gfntf :{}", gfNtf);
-
         ClientLocation clientLocation = new ClientLocation();
         msgService.showMessage(gfNtf, emergencyStatus, clientLocation, new Message());
     }
 
-    @GetMapping("/scenario2")
-    public void executeRuleTest2(GeofenceNtf gfNtf){
-        EmergencyStatus emergencyStatus = new EmergencyStatus();
-        emergencyStatus.setIsEmergency(false);
-
+    @PostMapping("/scenario2")
+    public void executeRuleTest2(@RequestBody EmergencyStatus emergencyStatus){
+        /*EmergencyStatus emergencyStatus = new EmergencyStatus();
+        emergencyStatus.setIsEmergency(true);
+        emergencyStatus.setEmergencyLocation("3dprinter");*/
         ClientLocation clientLocation = new ClientLocation();
-        msgService.showMessage(gfNtf, emergencyStatus, clientLocation, new Message());
+        msgService.emergencyLocation(emergencyStatus, new Message());
     }
 
     //for testing purposes

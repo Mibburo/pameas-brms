@@ -12,5 +12,6 @@ import lombok.ToString;
 public class EmergencyStatus {
 
     private Boolean isEmergency;
-
+    private String emergencyType;
+    private String emergencyLocation;
 }

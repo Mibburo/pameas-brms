@@ -34,4 +34,5 @@ public class Location {
     private List<String> geofenceNames;
     private String rssiVal;
     private String timestamp;
+    private String gfName;
 }

@@ -11,5 +11,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Message {
 
+    private String address;
     private String message;
 }
