@@ -3,6 +3,7 @@ package com.pameas.brms.utils;
 import com.pameas.brms.configuration.SeleniumConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,8 +14,8 @@ public class SeleniumUtil {
 
     private final SeleniumConfig config;
 
-    public SeleniumUtil( ) {
-        config = new SeleniumConfig();
+    public SeleniumUtil(String driverPath ) {
+        config = new SeleniumConfig(driverPath);
     }
 
     public void testSel(String url, String userName, String userPassword, String confName, String message){
@@ -49,10 +50,17 @@ public class SeleniumUtil {
 
         openChat(wait);
         sendMessaage(wait, message);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
+        int i = 0;
+        while(!joinedChat(wait)) {
+            try {
+                i++;
+                if(i == 12){
+                    break;
+                }
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
+            }
         }
 
         config.getDriver().close();
@@ -102,6 +110,17 @@ public class SeleniumUtil {
 
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"app\"]/div/div[6]/div/div/div[6]/div/div/div[2]/div[2]/div/button/span/i")));
         config.getDriver().findElement(By.xpath("//*[@id=\"app\"]/div/div[6]/div/div/div[6]/div/div/div[2]/div[2]/div/button/span/i")).click();
+    }
+
+    //vertical-center media-body
+    private Boolean joinedChat(WebDriverWait wait){
+        List<WebElement> msgs = config.getDriver().findElements(By.className("vertical-center"));
+        for(WebElement msg:msgs){
+            if(msg.getText().contains("has joined the room")){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

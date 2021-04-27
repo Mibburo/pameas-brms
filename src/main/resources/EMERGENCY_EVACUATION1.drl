@@ -1,0 +1,19 @@
+global com.pameas.brms.model.Message alertMsg;
+import com.pameas.brms.model.entity.ClientLocation;
+import com.pameas.brms.model.entity.GeofenceNtf;
+import com.pameas.brms.model.EmergencyStatus;
+import com.pameas.brms.model.Location;
+import com.pameas.brms.model.entity.PersonalInfo;
+
+rule "Evacuation/Stage 1"
+    when
+        emStatus : EmergencyStatus($loc : emergencyLocation)
+        emSt : EmergencyStatus($dest : destination)
+        EmergencyStatus( isEmergency == true);
+        location : Location( gfName == $loc)
+        clAddress : PersonalInfo($address : clientAddress)
+        //gf : GeofenceNtf( gfEvent == "ZONE_IN");
+    then
+        alertMsg.setAddress($address);
+      	alertMsg.setMessage("Emergency alert please go to " + $dest);
+end;

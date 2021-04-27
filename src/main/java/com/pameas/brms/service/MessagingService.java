@@ -18,10 +18,14 @@ public class MessagingService {
     @Value("${webrtc.sylk.user.password}")
     private String userPassword;
 
+    @Value("${selenium.webdriver.path}")
+    private String webDiverPath;
+
     //SeleniumExample seleniumExample;
 
     public void runSelInvite(String confName, List<String> invites, String message){
-        SeleniumUtil seleniumUtil = new SeleniumUtil();
+        String driverPath = MessagingService.class.getResource(webDiverPath).getPath();
+        SeleniumUtil seleniumUtil = new SeleniumUtil(driverPath);
         seleniumUtil.conferenceInvite(url, userName, userPassword, confName, invites, message);
     }
 }

@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class SeleniumConfig {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    public SeleniumConfig() {
-        System.setProperty("webdriver.chrome.driver", "C:\\dev\\PAMEAS\\brms\\brms\\src\\main\\resources\\chromedriver.exe");
+    public SeleniumConfig(String driverPath) {
+        System.setProperty("webdriver.chrome.driver", driverPath);
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("use-fake-ui-for-media-stream");

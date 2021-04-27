@@ -1,11 +1,11 @@
 package com.pameas.brms.model.entity;
 
+import com.pameas.brms.model.AccessPoint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import com.pameas.brms.model.AccessPoint;
 
 import java.util.List;
 

@@ -22,28 +22,14 @@ public class RulesController {
     private final EmergencyMessageService msgService;
     private final MessagingService selenium;
 
-    //private static SeleniumExample seleniumExample;
-
     @Autowired
     public RulesController(EmergencyMessageService msgService, MessagingService selenium){
         this.msgService = msgService;
         this.selenium = selenium;
     }
 
-    @PostMapping("/scenario1")
-    public void executeRuleTest(@RequestBody GeofenceNtf gfNtf){
-        EmergencyStatus emergencyStatus = new EmergencyStatus();
-        emergencyStatus.setIsEmergency(true);
-
-        ClientLocation clientLocation = new ClientLocation();
-        msgService.showMessage(gfNtf, emergencyStatus, clientLocation, new Message());
-    }
-
-    @PostMapping("/scenario2")
-    public void executeRuleTest2(@RequestBody EmergencyStatus emergencyStatus){
-        /*EmergencyStatus emergencyStatus = new EmergencyStatus();
-        emergencyStatus.setIsEmergency(true);
-        emergencyStatus.setEmergencyLocation("3dprinter");*/
+    @PostMapping("/evacuation1")
+    public void executeEvacuation(@RequestBody EmergencyStatus emergencyStatus){
         ClientLocation clientLocation = new ClientLocation();
         msgService.emergencyLocation(emergencyStatus, new Message());
     }

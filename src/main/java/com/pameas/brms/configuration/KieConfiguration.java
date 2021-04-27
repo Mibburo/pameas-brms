@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.pameas.brms.service")
 public class KieConfiguration {
 
-    private static final String drlFile = "EMERGENCY_TEST.drl";
+    private static final String drlFile = "EMERGENCY_EVACUATION1.drl";
 
     @Bean
     public KieContainer kieContainer() {
